@@ -1,0 +1,85 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build exe
+        env:
+          PYTHONUTF8: "1"
+        run: python build.py
+
+      - name: Compute SHA256
+        id: hash
+        shell: pwsh
+        run: |
+          $exe = Get-ChildItem dist/*.exe | Select-Object -First 1
+          $hash = (Get-FileHash $exe.FullName -Algorithm SHA256).Hash
+          "exe_path=$($exe.FullName)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "sha256=$hash" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "$hash  $($exe.Name)" | Out-File -FilePath dist/SHA256SUMS.txt -Encoding ascii
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tidydisk-exe
+          path: dist/*
+
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.exe
+            dist/SHA256SUMS.txt
+          generate_release_notes: true
+          body: |
+            ## TidyDisk
+
+            One-click Windows C-drive cleaner. No bundleware, no telemetry, no subscription.
+
+            ## Download
+
+            - **TidyDisk.exe** — Single Windows executable (no installer needed)
+            - **SHA256SUMS.txt** — Checksum file to verify download integrity
+
+            ## First-run note
+
+            Windows will show "Windows protected your PC" because the binary isn't code-signed (signing certificates cost ~$200/year — we'll add one once revenue justifies it).
+
+            **To run:** click "More info" → "Run anyway".
+
+            Or, in the file's Properties, check "Unblock" and Save.
+
+            ## Verify integrity (optional)
+
+            ```powershell
+            Get-FileHash TidyDisk.exe -Algorithm SHA256
+            ```
+
+            Compare with the value in SHA256SUMS.txt.
+
+            ## Buy the supported version
+
+            👉 https://gumroad.com/l/tidydisk — $9.99, lifetime updates, email support.
