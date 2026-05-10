@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TidyDisk — Gumroad Cover (1280×720)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #f1f5f9;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px;
+  }
+
+  /* THE COVER — exactly 1280×720 */
+  .cover {
+    width: 1280px;
+    height: 720px;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.25) 0%, transparent 50%),
+      radial-gradient(circle at 100% 100%, rgba(37, 99, 235, 0.30) 0%, transparent 50%),
+      linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    color: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.4);
+  }
+
+  /* Decorative gradient orb */
+  .cover::before {
+    content: "";
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.4) 0%, transparent 60%);
+    top: -150px; right: -150px;
+    filter: blur(40px);
+    pointer-events: none;
+  }
+
+  /* LEFT — Hero text */
+  .left {
+    padding: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+  }
+
+  .top-row { display: flex; align-items: center; gap: 16px; }
+  .logo {
+    width: 64px; height: 64px;
+    background: linear-gradient(135deg, #2563EB, #4F46E5);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 32px; font-weight: 800;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.5);
+  }
+  .brand {
+    font-size: 22px; font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .brand-sub { font-size: 13px; color: #94A3B8; font-weight: 500; }
+
+  h1 {
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: -2.5px;
+    line-height: 1.05;
+    margin-top: 50px;
+  }
+  h1 .accent {
+    background: linear-gradient(120deg, #60A5FA, #818CF8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .tagline {
+    margin-top: 22px;
+    font-size: 21px;
+    color: #CBD5E1;
+    font-weight: 500;
+    line-height: 1.45;
+    max-width: 520px;
+  }
+
+  .promises {
+    margin-top: 36px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .pill {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #E2E8F0;
+    backdrop-filter: blur(10px);
+  }
+  .pill .check {
+    color: #34D399;
+    margin-right: 6px;
+    font-weight: 800;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-top: auto;
+  }
+  .price {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+  }
+  .price .currency { font-size: 28px; color: #94A3B8; vertical-align: top; margin-right: 2px; }
+  .price-meta { font-size: 15px; color: #94A3B8; font-weight: 500; }
+  .price-meta strong { color: #E2E8F0; }
+
+  /* RIGHT — App window mockup */
+  .right {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 50px 40px 0;
+  }
+
+  .window {
+    width: 100%;
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow:
+      0 30px 60px rgba(0, 0, 0, 0.45),
+      0 12px 24px rgba(0, 0, 0, 0.25);
+    transform: rotate(2deg) translateY(-10px);
+    color: #0F172A;
+  }
+
+  .titlebar {
+    background: #F1F5F9;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid #E2E8F0;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.r { background: #EF4444; }
+  .dot.y { background: #F59E0B; }
+  .dot.g { background: #10B981; }
+  .titlebar-title {
+    margin-left: 12px; font-size: 12px; color: #64748B; font-weight: 600;
+  }
+
+  .app-body { padding: 26px 28px 28px; }
+
+  .app-title {
+    font-size: 16px; font-weight: 700; color: #0F172A;
+    margin-bottom: 4px;
+  }
+  .app-sub {
+    font-size: 11px; color: #64748B; margin-bottom: 18px;
+  }
+
+  .stat-card {
+    background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+    border: 1px solid #BFDBFE;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+  .stat-row { display: flex; justify-content: space-between; align-items: baseline; }
+  .stat-label { font-size: 11px; color: #1D4ED8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-value { font-size: 28px; font-weight: 800; color: #1E40AF; letter-spacing: -1px; }
+  .stat-meta { font-size: 11px; color: #64748B; margin-top: 4px; }
+
+  .progress-track {
+    background: #fff;
+    height: 6px; border-radius: 999px; margin-top: 12px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 92%;
+    background: linear-gradient(90deg, #2563EB, #4F46E5);
+    border-radius: 999px;
+  }
+
+  .scan-btn {
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
+    color: #fff;
+    text-align: center;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
+  }
+
+  .item-list { margin-top: 14px; }
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 11px;
+    border-bottom: 1px solid #F1F5F9;
+  }
+  .item:last-child { border-bottom: none; }
+  .item-name { color: #1F2937; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+  .item-name::before { content: "✓"; color: #10B981; font-weight: 800; }
+  .item-size { color: #64748B; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  /* Watermark badge */
+  .badge {
+    position: absolute;
+    bottom: 28px;
+    right: 28px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 11px;
+    color: #94A3B8;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(10px);
+    z-index: 10;
+  }
+  .badge .dot-live {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #34D399; display: inline-block; margin-right: 6px;
+    box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
+  }
+
+  /* Hint shown only when window is too small */
+  .size-hint {
+    position: fixed; top: 12px; left: 12px;
+    background: #0F172A; color: #fff;
+    font-size: 12px; font-family: ui-monospace, "Cascadia Mono", monospace;
+    padding: 8px 12px; border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  @media (min-width: 1400px) { .size-hint { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="size-hint">
+  Cover renders at exactly 1280×720. Use Chrome DevTools → ⋯ → Capture screenshot.
+</div>
+
+<div class="cover">
+
+  <!-- LEFT: hero text -->
+  <div class="left">
+    <div class="top-row">
+      <div class="logo">T</div>
+      <div>
+        <div class="brand">TidyDisk</div>
+        <div class="brand-sub">for Windows · v1.0</div>
+      </div>
+    </div>
+
+    <div>
+      <h1>The honest <span class="accent">C-drive cleaner</span><br>for Windows.</h1>
+      <p class="tagline">
+        One button. No bundleware. No telemetry. No subscription.<br>
+        Source-available on GitHub.
+      </p>
+
+      <div class="promises">
+        <div class="pill"><span class="check">✓</span> 12 MB single exe</div>
+        <div class="pill"><span class="check">✓</span> Zero telemetry</div>
+        <div class="pill"><span class="check">✓</span> MIT source</div>
+        <div class="pill"><span class="check">✓</span> Lifetime updates</div>
+      </div>
+    </div>
+
+    <div class="price-row">
+      <div class="price"><span class="currency">$</span>9.99</div>
+      <div class="price-meta">
+        <strong>One-time payment</strong><br>
+        Use on every PC you own
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: app mockup -->
+  <div class="right">
+    <div class="window">
+      <div class="titlebar">
+        <div class="dot r"></div>
+        <div class="dot y"></div>
+        <div class="dot g"></div>
+        <div class="titlebar-title">TidyDisk</div>
+      </div>
+      <div class="app-body">
+        <div class="app-title">Scan complete</div>
+        <div class="app-sub">8 items found · safe items pre-selected</div>
+
+        <div class="stat-card">
+          <div class="stat-row">
+            <div>
+              <div class="stat-label">Total to free</div>
+              <div class="stat-value">8.4 GB</div>
+            </div>
+          </div>
+          <div class="stat-meta">C drive · 92% used</div>
+          <div class="progress-track"><div class="progress-fill"></div></div>
+        </div>
+
+        <div class="item-list">
+          <div class="item"><span class="item-name">User Temp Files</span><span class="item-size">2.1 GB</span></div>
+          <div class="item"><span class="item-name">Recycle Bin</span><span class="item-size">3.2 GB</span></div>
+          <div class="item"><span class="item-name">Windows Update Cache</span><span class="item-size">1.8 GB</span></div>
+          <div class="item"><span class="item-name">Browser Cache</span><span class="item-size">912 MB</span></div>
+          <div class="item"><span class="item-name">Thumbnail Cache</span><span class="item-size">186 MB</span></div>
+        </div>
+
+        <div class="scan-btn" style="margin-top: 16px;">✨ Clean Now</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="badge">
+    <span class="dot-live"></span> AVAILABLE NOW · GUMROAD
+  </div>
+
+</div>
+
+</body>
+</html>
